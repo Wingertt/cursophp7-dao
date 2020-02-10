@@ -70,6 +70,48 @@
             }
         }
 
+        public static function getList()//static dis q n precisa-se instanciar um objeto;
+        {
+
+            $sql = new Sql();
+
+           return $sql->Select("SELECT * FROM  usuarios2 ORDER BY usLogin");
+
+        }
+
+        public static function search($login)
+        {
+            $sql = new Sql();
+
+            return $sql->Select("SELECT * FROM usuarios2 WHERE usLogin LIKE :SEARCH ORDER BY usLogin",array(
+                ':SEARCH'=>'%'.$login.'%'//entre % diz q pode estar escrito entre qualquer coisa
+            ));
+        }
+
+        public function login($login,$password)
+        {
+            $sql = new Sql();
+
+            $result = $sql->Select("SELECT * FROM usuarios2 WHERE usLogin = :LOGIN AND Senha = :PASSWORD",array(
+                ":LOGIN"=>$login,
+                ":PASSWORD"=>$password
+            ));
+
+            if(count($result)>0)
+            {
+                $row = $result[0];
+
+                $this->setIdusuario($row['ID_usuario']);
+                $this->setLogin($row['UsLogin']);
+                $this->setSenha($row['Senha']);
+                $this->setDtCadastro(new DateTime($row['DtCadastro']));
+            }else
+            {
+                throw new Exception("Login e/ou senha inválidos.");
+                
+            }
+        }
+
         public function __toString()
         {
             return json_encode(array(
