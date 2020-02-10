@@ -16,8 +16,21 @@
     //echo json_encode($search);
 
     //Carrega um usuario ao logar
-    $usuario = new Usuario();
-    $usuario->login("Matias Machos","FitDanceCanBeGAY");
-    echo $usuario;
+    //$usuario = new Usuario();
+    //$usuario->login("Matias Machos","FitDanceCanBeGAY");
+    //echo $usuario;
    
+    //Criando um novo usuario;
+    //$aluno = new Usuario("marileni","elana me devolve o vaso de flor");
+    //$aluno->insert();
+   // echo $aluno;
+
+    $usuario = new Usuario();
+
+    $usuario->loadByID(8);
+
+    $usuario->Update("Cesar","guilaribalde123");
+
+    echo $usuario;
+
 ?>
